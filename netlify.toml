@@ -1,0 +1,16 @@
+# The deployable web app is the Vite/React console in /frontend.
+# The FastAPI backend (Python + OR-Tools + SQLite) cannot run on Netlify and
+# must be hosted separately; point the frontend at it with VITE_API_BASE_URL.
+[build]
+  base = "frontend"
+  command = "npm install && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Single-page app fallback
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
