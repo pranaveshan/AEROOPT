@@ -1,0 +1,54 @@
+{
+  "dataset_size": 20,
+  "input_hash": "73eb8b0119b7a356bf3279dfb81d2ac7a64a3e1aa28ee4c2ca7eb3481c4e878a",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+  "results": {
+    "cp_sat": {
+      "assigned_count": 0,
+      "best_bound": null,
+      "objective": null,
+      "objective_components": {
+        "assigned_priority_weight": 0,
+        "assignment_changes": 0,
+        "stability_penalty_units": 0,
+        "total_delay_minutes": 0,
+        "unassigned_priority_weight": 60
+      },
+      "solver": "ortools-cp-sat",
+      "status": "UNKNOWN",
+      "unassigned_count": 20,
+      "validation": {
+        "assigned_count": 0,
+        "errors": [],
+        "unassigned_count": 20,
+        "valid": true
+      },
+      "wall_time_seconds": 5.670266999999967
+    },
+    "greedy": {
+      "assigned_count": 20,
+      "best_bound": null,
+      "objective": null,
+      "objective_components": {
+        "assigned_priority_weight": 60,
+        "assignment_changes": 0,
+        "total_delay_minutes": 452,
+        "unassigned_priority_weight": 0
+      },
+      "solver": "deterministic-greedy-v1",
+      "status": "FEASIBLE",
+      "unassigned_count": 0,
+      "validation": {
+        "assigned_count": 20,
+        "errors": [],
+        "unassigned_count": 0,
+        "valid": true
+      },
+      "wall_time_seconds": 0.2740597000001799
+    }
+  },
+  "seed": 42,
+  "synthetic": true,
+  "time_limit_seconds": 5.0
+}

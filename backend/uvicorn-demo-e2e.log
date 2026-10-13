@@ -1,0 +1,18 @@
+INFO:     Started server process [20308]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8123 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54709 - "GET /api/v1/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "GET /api/v1/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "GET /api/v1/dashboard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/disruptions HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/schedule/solve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/schedule/apply HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:54710 - "POST /api/v1/schedule/apply HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "GET /api/v1/schedule HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/scenarios HTTP/1.1" 201 Created
+INFO:     127.0.0.1:54710 - "PATCH /api/v1/scenarios/08F97D53 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/scenarios/08F97D53/solve HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "POST /api/v1/scenarios/08F97D53/discard HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "GET /api/v1/audit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54710 - "GET /api/v1/audit/verify HTTP/1.1" 200 OK

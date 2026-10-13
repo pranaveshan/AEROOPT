@@ -1,0 +1,48 @@
+{
+  "dataset_size": 8,
+  "input_hash": "c418aad3b5379d80ea8ba6de003b25bd97d8ec435a24abddc8a5a85d8ebf73a7",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "results": {
+    "cp_sat": {
+      "assigned_count": 0,
+      "best_bound": null,
+      "objective": null,
+      "objective_components": {},
+      "solver": "cp-sat-unavailable",
+      "status": "UNKNOWN",
+      "unassigned_count": 8,
+      "validation": {
+        "errors": [
+          "OR-Tools is not installed; CP-SAT was not executed"
+        ],
+        "valid": false
+      },
+      "wall_time_seconds": 9.466299997029637e-05
+    },
+    "greedy": {
+      "assigned_count": 8,
+      "best_bound": null,
+      "objective": null,
+      "objective_components": {
+        "assigned_priority_weight": 21,
+        "assignment_changes": 0,
+        "total_delay_minutes": 124,
+        "unassigned_priority_weight": 0
+      },
+      "solver": "deterministic-greedy-v1",
+      "status": "FEASIBLE",
+      "unassigned_count": 0,
+      "validation": {
+        "assigned_count": 8,
+        "errors": [],
+        "unassigned_count": 0,
+        "valid": true
+      },
+      "wall_time_seconds": 0.0018356719999701454
+    }
+  },
+  "seed": 42,
+  "synthetic": true,
+  "time_limit_seconds": 1.0
+}

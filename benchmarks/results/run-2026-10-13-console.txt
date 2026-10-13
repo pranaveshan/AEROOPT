@@ -1,0 +1,164 @@
+[
+  {
+    "dataset_size": 8,
+    "seed": 42,
+    "input_hash": "f8bbe084c717441a9e75988ff375ba879fdada30f0c3ae4d2f8d425b0e7f6d5b",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "time_limit_seconds": 5.0,
+    "synthetic": true,
+    "results": {
+      "greedy": {
+        "status": "FEASIBLE",
+        "solver": "deterministic-greedy-v1",
+        "wall_time_seconds": 0.008189000000129454,
+        "objective": null,
+        "best_bound": null,
+        "objective_components": {
+          "assigned_priority_weight": 21,
+          "total_delay_minutes": 218,
+          "unassigned_priority_weight": 0,
+          "assignment_changes": 0
+        },
+        "assigned_count": 8,
+        "unassigned_count": 0,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 8,
+          "unassigned_count": 0
+        }
+      },
+      "cp_sat": {
+        "status": "FEASIBLE",
+        "solver": "ortools-cp-sat",
+        "wall_time_seconds": 6.486656699999912,
+        "objective": 122.0,
+        "best_bound": 0.0,
+        "objective_components": {
+          "unassigned_priority_weight": 0,
+          "total_delay_minutes": 122,
+          "assignment_changes": 0,
+          "stability_penalty_units": 0,
+          "assigned_priority_weight": 21
+        },
+        "assigned_count": 8,
+        "unassigned_count": 0,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 8,
+          "unassigned_count": 0
+        }
+      }
+    }
+  },
+  {
+    "dataset_size": 20,
+    "seed": 42,
+    "input_hash": "73eb8b0119b7a356bf3279dfb81d2ac7a64a3e1aa28ee4c2ca7eb3481c4e878a",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "time_limit_seconds": 5.0,
+    "synthetic": true,
+    "results": {
+      "greedy": {
+        "status": "FEASIBLE",
+        "solver": "deterministic-greedy-v1",
+        "wall_time_seconds": 0.2740597000001799,
+        "objective": null,
+        "best_bound": null,
+        "objective_components": {
+          "assigned_priority_weight": 60,
+          "total_delay_minutes": 452,
+          "unassigned_priority_weight": 0,
+          "assignment_changes": 0
+        },
+        "assigned_count": 20,
+        "unassigned_count": 0,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 20,
+          "unassigned_count": 0
+        }
+      },
+      "cp_sat": {
+        "status": "UNKNOWN",
+        "solver": "ortools-cp-sat",
+        "wall_time_seconds": 5.670266999999967,
+        "objective": null,
+        "best_bound": null,
+        "objective_components": {
+          "unassigned_priority_weight": 60,
+          "total_delay_minutes": 0,
+          "assignment_changes": 0,
+          "stability_penalty_units": 0,
+          "assigned_priority_weight": 0
+        },
+        "assigned_count": 0,
+        "unassigned_count": 20,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 0,
+          "unassigned_count": 20
+        }
+      }
+    }
+  },
+  {
+    "dataset_size": 40,
+    "seed": 42,
+    "input_hash": "cad683e21976d40f6fd6bf26ba817888cac20b6ed639aa06bcc234714f271914",
+    "python": "3.14.6 (tags/v3.14.6:c63aec6, Jun 10 2026, 10:26:10) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "time_limit_seconds": 5.0,
+    "synthetic": true,
+    "results": {
+      "greedy": {
+        "status": "FEASIBLE",
+        "solver": "deterministic-greedy-v1",
+        "wall_time_seconds": 1.68148519999977,
+        "objective": null,
+        "best_bound": null,
+        "objective_components": {
+          "assigned_priority_weight": 120,
+          "total_delay_minutes": 7144,
+          "unassigned_priority_weight": 0,
+          "assignment_changes": 0
+        },
+        "assigned_count": 40,
+        "unassigned_count": 0,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 40,
+          "unassigned_count": 0
+        }
+      },
+      "cp_sat": {
+        "status": "UNKNOWN",
+        "solver": "ortools-cp-sat",
+        "wall_time_seconds": 6.49508969999988,
+        "objective": null,
+        "best_bound": null,
+        "objective_components": {
+          "unassigned_priority_weight": 120,
+          "total_delay_minutes": 0,
+          "assignment_changes": 0,
+          "stability_penalty_units": 0,
+          "assigned_priority_weight": 0
+        },
+        "assigned_count": 0,
+        "unassigned_count": 40,
+        "validation": {
+          "valid": true,
+          "errors": [],
+          "assigned_count": 0,
+          "unassigned_count": 40
+        }
+      }
+    }
+  }
+]

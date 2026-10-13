@@ -1,0 +1,8 @@
+fastapi==0.128.2
+uvicorn[standard]==0.35.0
+pydantic==2.11.7
+SQLAlchemy==2.0.41
+alembic==1.16.4
+ortools==9.14.6206
+pytest==8.4.1
+httpx==0.28.1
