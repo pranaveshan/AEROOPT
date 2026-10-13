@@ -1,0 +1,17 @@
+# Keep the upload small: only source that Vercel actually builds/serves.
+.venv/
+venv/
+backend/.venv/
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+*.db
+*.sqlite
+*.sqlite3
+*.log
+__pycache__/
+.pytest_cache/
+benchmarks/results/
+docs/
+AeroOpt/

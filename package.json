@@ -1,0 +1,7 @@
+{
+  "name": "aeroopt-demo-build",
+  "private": true,
+  "scripts": {
+    "build": "cd frontend && npm install --no-audit --no-fund && npm run build"
+  }
+}

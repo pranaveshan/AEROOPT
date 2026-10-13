@@ -1,0 +1,7 @@
+# Runtime deps for the Vercel Python function (api/index.py).
+# Pin matches backend/requirements.txt so local fast tests and deployed
+# behavior agree. Python 3.12 (Vercel default runtime) has 9.15 wheels.
+fastapi>=0.128.2
+pydantic>=2.12
+SQLAlchemy==2.0.41
+ortools==9.15.6755

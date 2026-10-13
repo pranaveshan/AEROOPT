@@ -1,4 +1,6 @@
-const API = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8000/api/v1';
+// Same-origin /api/v1 when deployed (e.g. Vercel); localhost FastAPI during local dev.
+const isLocalhost = typeof window !== 'undefined' && /^(http:\/\/)?(localhost|127\.0\.0\.1)/.test(window.location.origin);
+const API = import.meta.env.VITE_API_BASE_URL ?? (isLocalhost ? 'http://localhost:8000/api/v1' : '/api/v1');
 const STORAGE_KEY = 'aeroopt_token';
 
 export function getApiToken(): string {

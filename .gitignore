@@ -11,6 +11,7 @@ __pycache__/
 .ruff_cache/
 .venv/
 venv/
+.vercel/
 node_modules/
 dist/
 coverage/
@@ -19,3 +20,5 @@ playwright-report/
 .DS_Store
 Thumbs.db
 *.log
+
+.vercel
