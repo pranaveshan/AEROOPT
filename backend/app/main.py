@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
 from pydantic import BaseModel, Field, model_validator
 from sqlalchemy.orm import Session
+from sqlalchemy.exc import IntegrityError
 from .db import Base, engine, get_db
 from .models import AircraftRow, PersonnelRow, TaskRow, AssignmentRow, SolverRunRow, AuditRow, ScenarioRow
 from .seed import seed
@@ -16,6 +17,7 @@ from .services.audit import append_event, verify_chain
 from .services.auth import authenticate_bearer, auth_configured, required_role, authorized, verify_password, issue_token, load_static_tokens, load_users
 from .services import scenarios as scenario_svc
 from .services import analytics as analytics_svc
+from .services import users as users_svc
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,7 +30,7 @@ app.add_middleware(CORSMiddleware,allow_origins=["http://localhost:5173","http:/
 @app.middleware("http")
 async def access_control(request: Request, call_next):
     path=request.url.path
-    if not path.startswith("/api/v1/") or path in ("/api/v1/health", "/api/v1/auth/login"):
+    if not path.startswith("/api/v1/") or path in ("/api/v1/health", "/api/v1/auth/login", "/api/v1/auth/register"):
         return await call_next(request)
     production=os.getenv("APP_ENV", "development").lower() == "production"
     try:
@@ -97,15 +99,52 @@ class LoginIn(BaseModel):
     username:str
     password:str
 @app.post("/api/v1/auth/login")
-def login(payload:LoginIn):
-    if not load_users():
+def login(payload:LoginIn,db:Session=Depends(get_db)):
+    env_users=load_users()
+    db_users=users_svc.any_db_users(db)
+    if not env_users and not db_users:
         raise HTTPException(503,"Password login is not configured")
-    role=verify_password(payload.username,payload.password)
+    username=payload.username
+    # Environment users (AEROOPT_USERS) are checked first and keep their existing behaviour.
+    role=verify_password(payload.username,payload.password) if env_users else None
+    if not role:
+        user=users_svc.verify_db_user(db,payload.username,payload.password)
+        if user and user.role in ("viewer","planner","admin"):
+            role=user.role; username=user.username
     if not role:
         raise HTTPException(401,"Invalid credentials")
     ttl=int(os.getenv("AEROOPT_TOKEN_TTL_SECONDS","3600"))
-    token=issue_token(payload.username,role,ttl)
-    return {"access_token":token,"token_type":"bearer","role":role,"expires_in":ttl}
+    token=issue_token(username,role,ttl)
+    return {"access_token":token,"token_type":"bearer","role":role,"expires_in":ttl,"username":username}
+
+class RegisterIn(BaseModel):
+    username:str=Field(min_length=3,max_length=32)
+    email:str=Field(min_length=3,max_length=254)
+    password:str=Field(min_length=1,max_length=256)
+    @model_validator(mode="after")
+    def check(self):
+        if not users_svc.USERNAME_RE.match(users_svc.normalise_username(self.username)):
+            raise ValueError("Username must be 3-32 characters: letters, numbers, dots, dashes or underscores")
+        if not users_svc.EMAIL_RE.match(self.email.strip()):
+            raise ValueError("Enter a valid email address")
+        problems=users_svc.password_problems(self.password)
+        if problems: raise ValueError("Password needs "+", ".join(problems))
+        return self
+@app.post("/api/v1/auth/register",status_code=201)
+def register(payload:RegisterIn,db:Session=Depends(get_db)):
+    name=users_svc.normalise_username(payload.username)
+    if users_svc.find_user(db,name) or name in {k.lower() for k in load_users()}:
+        raise HTTPException(409,"That username is already taken")
+    if db.query(users_svc.UserRow).filter(users_svc.UserRow.email==payload.email.strip().lower()).first():
+        raise HTTPException(409,"An account with that email already exists")
+    row=users_svc.create_user(db,name,payload.email,payload.password)
+    try:
+        db.flush()
+        append_event(db,"USER_REGISTERED",row.id,{"username":row.username,"role":row.role})
+        db.commit()
+    except IntegrityError:
+        db.rollback(); raise HTTPException(409,"That username or email is already registered")
+    return {"id":row.id,"username":row.username,"role":row.role}
 @app.get("/api/v1/health")
 def health():return {"status":"ok","synthetic_data":True}
 @app.get("/api/v1/dashboard")

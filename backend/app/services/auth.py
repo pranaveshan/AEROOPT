@@ -117,7 +117,7 @@ def verify_password(username: str, password: str) -> str | None:
 def required_role(path: str, method: str) -> str:
     method = method.upper()
     is_write = method not in ("GET", "HEAD", "OPTIONS")
-    if path == "/api/v1/auth/login" or path == "/api/v1/health":
+    if path in ("/api/v1/auth/login", "/api/v1/auth/register", "/api/v1/health"):
         return "public"
     admin_prefixes = ("/api/v1/aircraft", "/api/v1/personnel", "/api/v1/tasks")
     planner_prefixes = (

@@ -26,7 +26,7 @@ export async function request<T>(path: string, init?: RequestInit): Promise<T> {
     try {
       const body = await res.json();
       msg = typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail ?? body);
-    } catch {}
+    } catch { /* body was not JSON; keep the status message */ }
     throw new Error(msg);
   }
   if (res.status === 204) return undefined as T;

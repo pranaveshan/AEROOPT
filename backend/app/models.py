@@ -89,3 +89,12 @@ class ScenarioRow(Base):
     created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),default=now)
     updated_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),default=now)
 Index("ix_task_status_deadline","tasks","status","latest_finish")
+class UserRow(Base):
+    """Self-registered and seeded accounts (additive; env AEROOPT_USERS still works)."""
+    __tablename__="users"
+    id: Mapped[str]=mapped_column(String,primary_key=True)
+    username: Mapped[str]=mapped_column(String(32),unique=True,index=True,nullable=False)
+    email: Mapped[str|None]=mapped_column(String(254),unique=True,index=True,nullable=True)
+    password_hash: Mapped[str]=mapped_column(String,nullable=False)
+    role: Mapped[str]=mapped_column(String,default="viewer",nullable=False)
+    created_at: Mapped[datetime]=mapped_column(DateTime(timezone=True),default=now)

@@ -1,0 +1,49 @@
+/* AeroOpt v3 "Cinematic Flight Ops" design tokens. */
+:root {
+  /* surfaces */
+  --void: #05070A;
+  --deep: #0B0F14;
+  --panel: #10161D;
+  --panel-2: #141B23;
+  --hairline: rgba(255, 255, 255, .14);
+  --hairline-strong: rgba(255, 255, 255, .28);
+  /* text */
+  --text: #F2F5F8;
+  --text-muted: #A7B1BD;
+  --text-faint: #737F8C; /* non-essential only */
+  /* one cool signal colour */
+  --accent: #7FD1FF;
+  --accent-soft: rgba(127, 209, 255, .14);
+  /* semantic */
+  --success: #3DDC97;
+  --warning: #F5B84A;
+  --danger: #FF6B6B;
+  --warning-soft: rgba(245, 184, 74, .12);
+  /* showcase backdrop */
+  --sky-gradient: linear-gradient(180deg, #05070A 0%, #0E2236 62%, #3A2B1F 100%);
+  /* type */
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --fs-micro: 11px;
+  --fs-small: 13px;
+  --fs-body: 15px;
+  --fs-h3: 18px;
+  --fs-h2: clamp(28px, 4vw, 52px);
+  --fs-h1-console: clamp(28px, 3vw, 40px);
+  --fs-hero: clamp(44px, 7.2vw, 112px);
+  --tracking-micro: .14em;
+  /* space / shape */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px; --s9: 120px;
+  --radius: 2px;
+  --sidebar: 232px;
+  --focus: 0 0 0 2px var(--void), 0 0 0 4px var(--accent);
+  /* motion */
+  --ease: cubic-bezier(.2, .7, .2, 1);
+  --t-fast: 140ms;
+  --t-med: 220ms;
+  --t-reveal: 600ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 0ms; --t-med: 80ms; --t-reveal: 0ms; }
+}

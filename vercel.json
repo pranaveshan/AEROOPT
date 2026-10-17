@@ -3,7 +3,9 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "frontend/dist" }
+      "config": {
+        "distDir": "frontend/dist"
+      }
     },
     {
       "src": "api/index.py",
@@ -11,8 +13,21 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/v1/(.*)", "destination": "/api/index.py" },
-    { "source": "/docs", "destination": "/api/index.py" },
-    { "source": "/openapi.json", "destination": "/api/index.py" }
+    {
+      "source": "/api/v1/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/docs",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/openapi.json",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/((?!api/|docs|openapi.json|assets/).*)",
+      "destination": "/index.html"
+    }
   ]
 }

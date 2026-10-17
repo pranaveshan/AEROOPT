@@ -1,6 +1,45 @@
 {
-  "name":"aeroopt-frontend","version":"0.1.0","private":true,"type":"module",
-  "scripts":{"dev":"vite --host 0.0.0.0","build":"tsc -b && vite build","test":"vitest run","preview":"vite preview --host 0.0.0.0"},
-  "dependencies":{"@vitejs/plugin-react":"4.7.0","vite":"6.3.5","typescript":"5.8.3","react":"19.1.0","react-dom":"19.1.0","lucide-react":"0.468.0"},
-  "devDependencies":{"@types/react":"19.1.8","@types/react-dom":"19.1.7","vitest":"3.2.4","jsdom":"26.1.0","@testing-library/react":"16.3.0","@testing-library/jest-dom":"6.6.4"}
+  "name": "aeroopt-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "test": "vitest run",
+    "preview": "vite preview --host 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc -b",
+    "contrast": "node scripts/contrast.mjs",
+    "screens": "node scripts/screens.mjs"
+  },
+  "dependencies": {
+    "@fontsource/barlow-condensed": "^5.3.0",
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@react-three/fiber": "^9.1.2",
+    "@vitejs/plugin-react": "4.7.0",
+    "lucide-react": "0.468.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "three": "^0.169.0",
+    "typescript": "5.8.3",
+    "vite": "6.3.5"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@eslint/js": "^9.39.5",
+    "@testing-library/jest-dom": "6.6.4",
+    "@testing-library/react": "16.3.0",
+    "@types/react": "19.1.8",
+    "@types/react-dom": "19.1.7",
+    "@types/three": "^0.169.0",
+    "eslint": "^9.39.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^17.13.0",
+    "jsdom": "26.1.0",
+    "playwright": "^1.64.1",
+    "typescript-eslint": "^8.71.2",
+    "vitest": "3.2.4"
+  }
 }

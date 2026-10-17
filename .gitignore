@@ -22,3 +22,6 @@ Thumbs.db
 *.log
 
 .vercel
+
+# generated admin credentials (backend/seed_data.py)
+ADMIN_CREDENTIALS.txt
