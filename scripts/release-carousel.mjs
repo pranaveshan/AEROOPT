@@ -104,7 +104,7 @@ const slides = [
       ['Product', LIVE.replace('https://', '')],
       ['Repository', GITHUB],
     ],
-    footer: 'Demo accounts available in the repository README',
+    footer: 'Console access is by invitation · synthetic dataset',
   },
 ]
 
