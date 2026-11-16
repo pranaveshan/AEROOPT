@@ -8,7 +8,7 @@
 import { chromium } from 'playwright-core'
 import { mkdirSync } from 'node:fs'
 
-const base = (process.argv[2] ?? 'https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page').replace(/\/$/, '')
+const base = (process.argv[2] ?? 'https://is.gd/AeroOpt').replace(/\/$/, '')
 const outDir = 'screenshots'
 mkdirSync(outDir, { recursive: true })
 

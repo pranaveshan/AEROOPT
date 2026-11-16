@@ -4,7 +4,7 @@
 
 AeroOpt holds the operational record and answers the only question that matters: *can this task actually fly, with this aircraft and this crew?* Every assignment is checked server-side against aircraft state, maintenance windows, capabilities, payload, crew qualifications, duty and rest limits, turnaround and task dependencies. Optimization produces a proposal — an authorised manager approves it before it becomes operational.
 
-> **Live demo:** https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page
+> **Live demo:** https://is.gd/AeroOpt
 > The deployment runs on a **synthetic dataset**. No external aviation feed is connected and the data is not operational. Console access is by invitation; credentials are not published.
 
 ![AeroOpt landing page](screenshots/01-aeropt-landing.png)

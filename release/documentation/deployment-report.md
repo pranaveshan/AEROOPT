@@ -5,7 +5,7 @@
 | Item | Value |
 | --- | --- |
 | Platform | Freebuff Sites (Cloudflare Workers + D1) |
-| Production URL | https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page |
+| Production URL | https://is.gd/AeroOpt |
 | Preview URL | https://site-65d80233d3134302966c9109a65d2807.freebuff.page |
 | Published | yes (production), latest deployment succeeded 2026-11-16 |
 | Worker build | `dist/aeroopt/index.js` (ES module) + `dist/client` assets |

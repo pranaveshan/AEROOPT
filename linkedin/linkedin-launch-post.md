@@ -28,7 +28,7 @@ The interesting part was not the UI. It was making the engine honest: dependency
 
 **Try it**
 
-Live demo (synthetic data, clearly labelled — not operational): https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page
+Live demo (synthetic data, clearly labelled — not operational): https://is.gd/AeroOpt
 Source: github.com/pranaveshan/AEROOPT
 Demo accounts and architecture notes are in the README.
 

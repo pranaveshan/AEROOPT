@@ -11,7 +11,7 @@ const root = process.cwd()
 const outDir = path.join(root, 'release', 'linkedin')
 mkdirSync(outDir, { recursive: true })
 
-const LIVE = 'https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page'
+const LIVE = 'https://is.gd/AeroOpt'
 const GITHUB = 'github.com/pranaveshan/AEROOPT'
 
 const image = (file) => {
