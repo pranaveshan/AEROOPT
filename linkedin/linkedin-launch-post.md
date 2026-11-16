@@ -29,7 +29,7 @@ The interesting part was not the UI. It was making the engine honest: dependency
 **Try it**
 
 Live demo (synthetic data, clearly labelled — not operational): https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page
-Source: github.com/PranavEshan/AeroOpt
+Source: github.com/pranaveshan/AEROOPT
 Demo accounts and architecture notes are in the README.
 
 I am not claiming this is certified aviation software. It is a working operations platform built end to end — schema, engine, API, approvals, audit trail and interface — and the parts that are missing (MFA, mail delivery, real feeds) are documented as missing rather than hidden.

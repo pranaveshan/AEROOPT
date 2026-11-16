@@ -9,6 +9,6 @@ Optimisation produces a scored proposal with per-task reasoning; a manager appro
 Built with React 19, Hono on Cloudflare Workers, Cloudflare D1 and pure TypeScript domain engines, with 50 tests over the engine and the API.
 
 Live demo (synthetic data): https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page
-Code: github.com/PranavEshan/AeroOpt
+Code: github.com/pranaveshan/AEROOPT
 
 #aviation #typescript #react #cloudflare #softwareengineering

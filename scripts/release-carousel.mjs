@@ -12,7 +12,7 @@ const outDir = path.join(root, 'release', 'linkedin')
 mkdirSync(outDir, { recursive: true })
 
 const LIVE = 'https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page'
-const GITHUB = 'github.com/PranavEshan/AeroOpt'
+const GITHUB = 'github.com/pranaveshan/AEROOPT'
 
 const image = (file) => {
   const buffer = readFileSync(path.join(root, 'screenshots', file))
