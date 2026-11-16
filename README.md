@@ -5,7 +5,7 @@
 AeroOpt holds the operational record and answers the only question that matters: *can this task actually fly, with this aircraft and this crew?* Every assignment is checked server-side against aircraft state, maintenance windows, capabilities, payload, crew qualifications, duty and rest limits, turnaround and task dependencies. Optimization produces a proposal — an authorised manager approves it before it becomes operational.
 
 > **Live demo:** https://site-6b4858e07ae54a00be427ec8cfa46142.freebuff.page
-> The deployment runs on a **synthetic demonstration dataset**. No external aviation feed is connected and the data is not operational.
+> The deployment runs on a **synthetic dataset**. No external aviation feed is connected and the data is not operational. Console access is by invitation; credentials are not published.
 
 ![AeroOpt landing page](screenshots/01-aeropt-landing.png)
 
@@ -161,18 +161,9 @@ npm run build      # dist/client (assets) + dist/aeroopt/index.js (Worker)
 
 Schema and demo data are created automatically on the first API request. To start from a clean dataset, stop the server and delete `.wrangler/state`.
 
-### Demonstration accounts
+### Access
 
-Password for every account: `AeroOpt#2026`
-
-| Email | Role |
-| --- | --- |
-| admin@aeroopt.io | Administrator |
-| ops@aeroopt.io | Operations Manager |
-| dispatch@aeroopt.io | Dispatcher |
-| maintenance@aeroopt.io | Maintenance Officer |
-| crew@aeroopt.io | Crew Coordinator |
-| viewer@aeroopt.io | Viewer |
+Console credentials are issued per operator by an administrator and are not published in this repository. A fresh database is seeded with one administrator account; its password is supplied out of band and should be changed after the first sign-in. Administrators create further accounts (Viewer or Dispatcher self-registration is also available) from User Management.
 
 ## Deployment
 

@@ -87,10 +87,10 @@ export function Landing() {
             </div>
 
             <figure className="min-w-0">
-              <AircraftViewer height={340} register="G-AOPT" label="Composite airframe" type="Composite twin-engine airliner" />
+              <AircraftViewer height={340} register="G-AOPT" label="Twin-engine airliner" type="Illustrative twin-engine airliner" />
               <figcaption className="mt-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-ink-3">
                 <span>Drag to rotate · scroll to zoom · double-click to reset</span>
-                <span>Generic model · not a type-specific airframe</span>
+                <span>Illustrative model · not a type-specific airframe</span>
               </figcaption>
             </figure>
           </div>

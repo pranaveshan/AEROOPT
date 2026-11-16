@@ -6,15 +6,6 @@ import { ApiError } from '../../lib/api'
 import { useAuth } from '../../lib/session'
 import { AuthLayout } from './AuthLayout'
 
-const DEMO = [
-  ['admin@aeroopt.io', 'Administrator'],
-  ['ops@aeroopt.io', 'Operations Manager'],
-  ['dispatch@aeroopt.io', 'Dispatcher'],
-  ['maintenance@aeroopt.io', 'Maintenance Officer'],
-  ['crew@aeroopt.io', 'Crew Coordinator'],
-  ['viewer@aeroopt.io', 'Viewer'],
-] as const
-
 export function SignIn() {
   const { signIn } = useAuth()
   const navigate = useNavigate()
@@ -76,27 +67,9 @@ export function SignIn() {
         </Button>
       </form>
 
-      <div className="mt-6 border-t border-line pt-4">
-        <div className="mb-2 text-[11px] font-semibold tracking-[0.08em] text-ink-3 uppercase">Demonstration accounts</div>
-        <div className="grid gap-1">
-          {DEMO.map(([address, role]) => (
-            <button
-              key={address}
-              type="button"
-              className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 text-left text-[12px] text-ink-2 hover:bg-surface-2"
-              onClick={() => {
-                setEmail(address)
-                setPassword('AeroOpt#2026')
-                setError('')
-              }}
-            >
-              <span className="mono truncate">{address}</span>
-              <span className="shrink-0 text-[11px] text-ink-3">{role}</span>
-            </button>
-          ))}
-        </div>
-        <p className="mt-2 text-[11px] text-ink-3">Shared demonstration password: AeroOpt#2026. Click an account to fill the form.</p>
-      </div>
+      <p className="mt-6 border-t border-line pt-4 text-[11.5px] text-ink-3">
+        Console access is provisioned per operator. Account credentials are issued by the administrator and are not published on this page.
+      </p>
     </AuthLayout>
   )
 }

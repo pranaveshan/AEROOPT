@@ -1,39 +1,114 @@
-// Interactive airframe model. Built from extruded SVG layers rotated in CSS 3D,
-// so it ships no 3D engine and still responds to drag, wheel and buttons.
-// This is a conceptual composite airframe, not a type-specific accurate model.
-import { useCallback, useEffect, useRef, useState } from 'react'
+// Interactive airframe view. A vector airliner drawn in three-quarter profile,
+// tilted in CSS 3D so drag and keyboard input change the presentation without
+// ever flattening the aircraft into an unreadable silhouette.
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 
 import { cn } from './ui'
 
-const FUSELAGE = 'M100 10 C106 20 108 30 108 44 L108 118 C108 138 105 150 100 166 C95 150 92 138 92 118 L92 44 C92 30 94 20 100 10 Z'
-const RIGHT_WING = 'M108 62 L170 108 L176 120 L110 99 Z'
-const LEFT_WING = 'M92 62 L30 108 L24 120 L90 99 Z'
-const RIGHT_STAB = 'M108 136 L146 156 L147 163 L108 151 Z'
-const LEFT_STAB = 'M92 136 L54 156 L53 163 L92 151 Z'
-const ENGINE_R = 'M118 84 L146 104 L146 111 L118 96 Z'
-const ENGINE_L = 'M82 84 L54 104 L54 111 L82 96 Z'
+const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
 
-function AirframeShape({ tone, opacity }: { tone: string; opacity?: number }) {
+function Airframe({ uid }: { uid: string }) {
+  const body = `${uid}-body`
+  const belly = `${uid}-belly`
+  const nacelle = `${uid}-nacelle`
+  const wing = `${uid}-wing`
+  const fin = `${uid}-fin`
+  const glow = `${uid}-glow`
+  const windows = Array.from({ length: 16 }, (_, index) => 206 + index * 18)
+
   return (
-    <svg viewBox="0 0 200 178" aria-hidden style={{ opacity }}>
-      <g fill={tone} stroke="none">
-        <path d={FUSELAGE} />
-        <path d={RIGHT_WING} />
-        <path d={LEFT_WING} />
-        <path d={RIGHT_STAB} />
-        <path d={LEFT_STAB} />
-        <path d={ENGINE_R} />
-        <path d={ENGINE_L} />
+    <svg viewBox="0 0 900 420" role="presentation" className="viewer-art">
+      <defs>
+        <linearGradient id={body} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f6fafc" />
+          <stop offset="0.4" stopColor="#d6e0e5" />
+          <stop offset="0.76" stopColor="#96a5ad" />
+          <stop offset="1" stopColor="#5d6c74" />
+        </linearGradient>
+        <linearGradient id={belly} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#cfd9de" />
+          <stop offset="1" stopColor="#5f6e76" />
+        </linearGradient>
+        <linearGradient id={nacelle} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#cfd9de" />
+          <stop offset="1" stopColor="#5f6e76" />
+        </linearGradient>
+        <linearGradient id={wing} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#d3dee3" />
+          <stop offset="1" stopColor="#526068" />
+        </linearGradient>
+        <linearGradient id={fin} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#f2f7f9" />
+          <stop offset="1" stopColor="#7f8d95" />
+        </linearGradient>
+        <radialGradient id={glow} cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stopColor="#f2c231" stopOpacity="0.24" />
+          <stop offset="1" stopColor="#f2c231" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+
+      <ellipse cx="450" cy="352" rx="318" ry="28" fill={`url(#${glow})`} />
+
+      {/* far wing, seen above the fuselage */}
+      <path d="M478 176 L628 88 L676 96 L556 180 Z" fill="#5d6b73" opacity="0.95" />
+
+      {/* vertical fin */}
+      <path d="M752 168 L818 60 L860 66 L846 172 Z" fill={`url(#${fin})`} />
+      <path d="M778 152 L830 76 L850 79 L822 156 Z" fill="#f2c231" opacity="0.94" />
+
+      {/* far horizontal stabiliser */}
+      <path d="M818 150 L872 128 L878 137 L824 158 Z" fill="#78868e" />
+
+      {/* fuselage */}
+      <path
+        d="M58 216 C 98 178 170 162 308 160 L700 157 C 764 157 806 148 836 130 C 846 142 840 160 816 170 L700 196 C 430 212 176 224 58 216 Z"
+        fill={`url(#${body})`}
+      />
+      <path d="M130 212 C 320 220 560 204 806 172 L700 196 C 430 212 190 220 130 212 Z" fill="#44525a" opacity="0.33" />
+
+      {/* accent cheatline */}
+      <path
+        d="M96 202 C 176 190 252 185 342 184 L742 181 C 788 180 814 172 834 158"
+        fill="none"
+        stroke="#f2c231"
+        strokeWidth="4"
+        opacity="0.95"
+      />
+
+      {/* cockpit */}
+      <path d="M96 199 C 118 180 148 172 176 170 L184 187 C 154 191 126 198 108 209 Z" fill="#1b2a33" />
+      <path d="M112 195 L164 183" stroke="#8fd8f2" strokeWidth="2" opacity="0.55" />
+
+      {/* cabin windows */}
+      <g fill="#22323b" opacity="0.92">
+        {windows.map((x, index) => (
+          <rect key={x} x={x} y={181 - index * 0.38} width="7" height="5" rx="2" />
+        ))}
       </g>
+      <rect x="196" y="176" width="3" height="14" rx="1.4" fill="#7d8b93" opacity="0.5" />
+      <rect x="524" y="172" width="3" height="14" rx="1.4" fill="#7d8b93" opacity="0.5" />
+
+      {/* near wing */}
+      <path d="M344 200 L228 306 L292 314 L566 212 Z" fill={`url(#${wing})`} />
+      <path d="M344 200 L566 212 L560 220 L344 206 Z" fill="#a7b4ba" opacity="0.5" />
+      <path d="M228 306 L292 314 L300 326 L236 318 Z" fill="#f2c231" />
+
+      {/* engine pylon and nacelle */}
+      <path d="M408 224 L470 232 L470 254 L414 248 Z" fill="#7c8a92" />
+      <rect x="286" y="248" width="126" height="54" rx="27" fill={`url(#${nacelle})`} />
+      <ellipse cx="292" cy="275" rx="15" ry="26" fill="#16232a" />
+      <ellipse cx="292" cy="275" rx="8" ry="17" fill="#33454f" />
+      <path d="M316 251 L392 253" stroke="#f2c231" strokeWidth="3" opacity="0.72" />
+      <rect x="404" y="262" width="8" height="26" rx="4" fill="#4d5b62" />
+
+      <circle cx="240" cy="313" r="4" fill="#f2c231" />
+      <circle cx="842" cy="168" r="3" fill="#f2c231" opacity="0.75" />
     </svg>
   )
 }
 
-const SLICES = 16
-const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value))
-
 export function AircraftViewer({
-  label = 'Conceptual airframe',
+  label = 'Twin-engine airliner',
   type = 'Composite twin-engine airliner',
   className,
   height = 320,
@@ -45,16 +120,14 @@ export function AircraftViewer({
   height?: number
   register?: string
 }) {
-  const [rotation, setRotation] = useState({ yaw: -26, pitch: 58 })
+  const uid = useId().replace(/[^a-zA-Z0-9-]/g, '')
+  const [view, setView] = useState({ yaw: -8, pitch: 6 })
   const [zoom, setZoom] = useState(1)
   const [dragging, setDragging] = useState(false)
   const [entered, setEntered] = useState(false)
   const drag = useRef<{ x: number; y: number; yaw: number; pitch: number } | null>(null)
-  const frame = useRef<HTMLDivElement>(null)
-  const reduced = useRef(false)
 
   useEffect(() => {
-    reduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     // The entrance runs once; afterwards the model only follows the pointer.
     const timer = window.setTimeout(() => setEntered(true), 760)
     return () => window.clearTimeout(timer)
@@ -62,20 +135,20 @@ export function AircraftViewer({
 
   const onPointerDown = useCallback(
     (event: React.PointerEvent<HTMLDivElement>) => {
-      drag.current = { x: event.clientX, y: event.clientY, yaw: rotation.yaw, pitch: rotation.pitch }
+      drag.current = { x: event.clientX, y: event.clientY, yaw: view.yaw, pitch: view.pitch }
       setDragging(true)
       event.currentTarget.setPointerCapture(event.pointerId)
     },
-    [rotation],
+    [view],
   )
 
   const onPointerMove = useCallback((event: React.PointerEvent<HTMLDivElement>) => {
     if (!drag.current) return
     const dx = event.clientX - drag.current.x
     const dy = event.clientY - drag.current.y
-    setRotation({
-      yaw: clamp(drag.current.yaw + dx * 0.45, -180, 180),
-      pitch: clamp(drag.current.pitch - dy * 0.3, 6, 84),
+    setView({
+      yaw: clamp(drag.current.yaw + dx * 0.12, -16, 16),
+      pitch: clamp(drag.current.pitch - dy * 0.1, -8, 14),
     })
   }, [])
 
@@ -85,7 +158,7 @@ export function AircraftViewer({
   }, [])
 
   const reset = () => {
-    setRotation({ yaw: -26, pitch: 58 })
+    setView({ yaw: -8, pitch: 6 })
     setZoom(1)
   }
 
@@ -104,56 +177,32 @@ export function AircraftViewer({
         onDoubleClick={reset}
         onWheel={(event) => {
           event.preventDefault()
-          setZoom((current) => clamp(current - event.deltaY * 0.0012, 0.65, 1.9))
+          setZoom((current) => clamp(current - event.deltaY * 0.0012, 0.7, 1.7))
         }}
         tabIndex={0}
         role="img"
         aria-label={`${type}. Interactive model: drag to rotate, scroll to zoom.`}
         onKeyDown={(event) => {
-          if (event.key === 'ArrowLeft') setRotation((r) => ({ ...r, yaw: clamp(r.yaw - 8, -180, 180) }))
-          if (event.key === 'ArrowRight') setRotation((r) => ({ ...r, yaw: clamp(r.yaw + 8, -180, 180) }))
-          if (event.key === 'ArrowUp') setRotation((r) => ({ ...r, pitch: clamp(r.pitch + 6, 6, 84) }))
-          if (event.key === 'ArrowDown') setRotation((r) => ({ ...r, pitch: clamp(r.pitch - 6, 6, 84) }))
-          if (event.key === '+' || event.key === '=') setZoom((z) => clamp(z + 0.1, 0.65, 1.9))
-          if (event.key === '-') setZoom((z) => clamp(z - 0.1, 0.65, 1.9))
+          if (event.key === 'ArrowLeft') setView((v) => ({ ...v, yaw: clamp(v.yaw - 4, -16, 16) }))
+          if (event.key === 'ArrowRight') setView((v) => ({ ...v, yaw: clamp(v.yaw + 4, -16, 16) }))
+          if (event.key === 'ArrowUp') setView((v) => ({ ...v, pitch: clamp(v.pitch + 3, -8, 14) }))
+          if (event.key === 'ArrowDown') setView((v) => ({ ...v, pitch: clamp(v.pitch - 3, -8, 14) }))
+          if (event.key === '+' || event.key === '=') setZoom((z) => clamp(z + 0.1, 0.7, 1.7))
+          if (event.key === '-') setZoom((z) => clamp(z - 0.1, 0.7, 1.7))
           if (event.key === 'r' || event.key === 'R') reset()
         }}
       >
         <div
-          ref={frame}
           className="viewer-model"
-          style={{ transform: `scale(${zoom}) rotateX(${rotation.pitch}deg) rotateZ(${rotation.yaw}deg)` }}
+          style={{ transform: `scale(${zoom}) rotateX(${view.pitch}deg) rotateY(${view.yaw}deg)` }}
         >
-          {Array.from({ length: SLICES }).map((_, index) => {
-            const depth = index * 1.05
-            const isTop = index === SLICES - 1
-            return (
-              <div key={index} className="viewer-slice" style={{ transform: `translateZ(${depth}px)` }}>
-                <AirframeShape
-                  tone={isTop ? 'var(--surface-3)' : index % 2 === 0 ? '#202a30' : '#1a2329'}
-                  opacity={isTop ? 1 : 0.94}
-                />
-              </div>
-            )
-          })}
-          {/* Livery details sit on the top face only. */}
-          <div className="viewer-slice" style={{ transform: `translateZ(${SLICES * 1.05 + 0.4}px)` }}>
-            <svg viewBox="0 0 200 178" aria-hidden>
-              <path d={FUSELAGE} fill="none" stroke="var(--accent)" strokeWidth="0.9" opacity="0.5" />
-              <path d="M100 22 L100 152" stroke="var(--accent)" strokeWidth="0.5" opacity="0.28" strokeDasharray="3 4" />
-              <path d="M92 44 L108 44" stroke="var(--accent)" strokeWidth="1.4" opacity="0.65" />
-              <circle cx="100" cy="18" r="1.4" fill="var(--accent)" opacity="0.8" />
-              <path d={RIGHT_WING} fill="none" stroke="var(--accent)" strokeWidth="0.5" opacity="0.3" />
-              <path d={LEFT_WING} fill="none" stroke="var(--accent)" strokeWidth="0.5" opacity="0.3" />
-            </svg>
-          </div>
+          <Airframe uid={uid} />
         </div>
-        <div className="viewer-shadow" aria-hidden />
       </div>
       <div className="viewer-controls">
         <button
           className="btn btn-secondary btn-icon"
-          onClick={() => setZoom((z) => clamp(z - 0.15, 0.65, 1.9))}
+          onClick={() => setZoom((z) => clamp(z - 0.15, 0.7, 1.7))}
           aria-label="Zoom out"
           title="Zoom out"
         >
@@ -163,7 +212,7 @@ export function AircraftViewer({
         </button>
         <button
           className="btn btn-secondary btn-icon"
-          onClick={() => setZoom((z) => clamp(z + 0.15, 0.65, 1.9))}
+          onClick={() => setZoom((z) => clamp(z + 0.15, 0.7, 1.7))}
           aria-label="Zoom in"
           title="Zoom in"
         >

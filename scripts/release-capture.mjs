@@ -54,9 +54,16 @@ await settle()
 await shot('01-aeropt-landing.png', '/')
 
 // Sign in through the real form.
+const email = process.env.AEROPT_EMAIL
+const password = process.env.AEROPT_PASSWORD
+if (!email || !password) {
+  console.error('Set AEROPT_EMAIL and AEROPT_PASSWORD in the environment before capturing console screenshots.')
+  await browser.close()
+  process.exit(1)
+}
 await page.goto(`${base}/signin`, { waitUntil: 'networkidle' })
-await page.fill('#email', 'admin@aeroopt.io')
-await page.fill('#password', 'AeroOpt#2026')
+await page.fill('#email', email)
+await page.fill('#password', password)
 await page.click('button[type="submit"]')
 await page.waitForURL(/\/console/, { timeout: 30000 })
 console.log(`signed in -> ${new URL(page.url()).pathname}`)
