@@ -1,0 +1,7 @@
+Repository name: AeroOpt
+
+Description:
+Aviation operations and scheduling platform for aircraft readiness, crew coordination, task management and constraint-based schedule optimisation.
+
+Topics:
+aviation, flight-operations, aircraft-scheduling, operations-management, optimization, react, typescript, cloudflare-workers, hono, sqlite, d1
